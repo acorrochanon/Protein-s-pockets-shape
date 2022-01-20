@@ -1,4 +1,4 @@
-print('hello')
+print('hi')
 print('This is a message from my local computer')
 
 print("some work on hotfix")
