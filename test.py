@@ -1,5 +1,3 @@
 print('hello')
-<<<<<<< HEAD
-=======
-print('This is ale')
->>>>>>> Alejandro
+print('This is a message from my local computer')
+
