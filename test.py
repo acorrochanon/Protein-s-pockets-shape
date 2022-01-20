@@ -8,3 +8,5 @@ print("some work on branch iss53")
 print("finish the work on branch hotfix")
 
 print("new changes")
+
+print("fixing the bug")
