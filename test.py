@@ -21,3 +21,5 @@ print("colleagues work")
 
 
 print("working on main")
+
+print("working on new idea")
