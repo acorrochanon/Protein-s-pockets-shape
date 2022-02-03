@@ -1,2 +1,2 @@
 # Protein-s-pockets-shape
-Master thesis project developed by Yossra Gharbi and Alejandro Corrochano. Supervised by AstraZeneca
+Master thesis project focused on proteins pocket shapes. Currently being developed by Yossra Gharbi and Alejandro Corrochano.
