@@ -42,7 +42,7 @@ def buildDataset(cavities, labels, atypes = None, features = None, rotation = Tr
 
         # Both atom types and features must be used 
         if features is not None: 
-                print('Error')
+                print('ERROR: Atom types and features must be introduced')
                 exit(1)
 
     # User enters node features.
