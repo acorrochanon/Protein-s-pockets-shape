@@ -1,13 +1,9 @@
 import os
 import sys
-from importlib import reload
+from data_funcs import *
 
 current_folder = os.path.dirname(os.path.abspath(__file__))
 abs_path = '/'.join([p for p in current_folder.split('/')[:-1]])+'/'
-
-import data_funcs
-from data_funcs import *
-reload(data_funcs)
 
 
 # ARGUMENTS: TRAINING SET SIZE (%, FLOAT)
@@ -28,8 +24,7 @@ if __name__ == '__main__':
                                                         split = float(sys.argv[1]))
 
 	
-	#Cavities 
-	
+	#Cavities
 	torch.save(cavity_splits[0], abs_path + 'data/Cavities/train_cavities.pt')
 	torch.save(cavity_splits[1], abs_path + 'data/Cavities/test_cavities.pt')
 

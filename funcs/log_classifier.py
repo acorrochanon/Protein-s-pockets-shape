@@ -9,7 +9,6 @@ abs_path = '/'.join([p for p in current_folder.split('/')[:-1]])+'/'
 
 if __name__ == '__main__':
 
-    # LOAD DATA
     train_fp_features = torch.load(abs_path + 'data/Features/train_features.pt')
     train_labels = torch.load(abs_path + 'data/Labels/train_labels.pt')
     test_fp_features = torch.load(abs_path + 'data/Features/test_features.pt')
@@ -37,15 +36,15 @@ if __name__ == '__main__':
     test_df = pd.DataFrame(data = test_dict)
     stand_test_df = (test_df - test_df.mean()) / test_df.std()
 
-    print(f'Train dataset shape:{train_df.shape}')
-    print(f'Test dataset shape:{test_df.shape}')
+    # print(f'Train dataset shape:{train_df.shape}')
+    # print(f'Test dataset shape:{test_df.shape}')
 
     # MODEL
     model = LogisticRegression().fit(stand_train_df, train_labels)
     y_pred = model.predict(stand_test_df)
-    y_true = test_labels
+    y_pred_proba = model.predict_proba(stand_test_df)[:,1]
 
     # METRICS
-    accuracy = model.score(stand_test_df, y_true)
-    auc_score = roc_auc_score(y_true, y_pred)
-    print(f'Accuracy: {accuracy:.2f}, AUC: {auc_score:.2f}')
+    accuracy = model.score(stand_test_df, test_labels)
+    auc_score = roc_auc_score(test_labels, y_pred_proba)
+    print(f'Logistic regression -> Accuracy: {accuracy:.2f} | AUC: {auc_score:.3f}')

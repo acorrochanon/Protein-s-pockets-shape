@@ -11,10 +11,6 @@ import e3nn
 from e3nn import o3
 from torch_geometric.data import Data
 from torch_geometric.loader import DataLoader
-
-# Metrics
-from sklearn.metrics import roc_curve
-from sklearn.metrics import roc_auc_score
 from sklearn.metrics import confusion_matrix
 
 
@@ -45,9 +41,9 @@ def buildDataset(cavities, labels, atypes = None, features = None, rotation = Tr
         nodes = [Data(pos = cav) for cav in cavities]
 
         # Both atom types and features must be used 
-        if features is not None:
-            except Exception as e: 
-                print(e)
+        if features is not None: 
+                print('Error')
+                exit(1)
 
     # User enters node features.
     else:  
@@ -64,13 +60,12 @@ def buildDataset(cavities, labels, atypes = None, features = None, rotation = Tr
 
 
 # Create the DataLoader. Default batch size is 32. 
-def makeLoader(dataset, batch = 32):
+def makeLoader(dataset, batch = 32, shuf = False):
     
     # Return batch. Shuffle is set to False (default). 
-    dataloader = DataLoader(dataset, batch_size = batch, shuffle = True)
+    dataloader = DataLoader(dataset, batch_size = batch, shuffle = shuf)
     
     return dataloader
-    # return next(iter(DataLoader(dataset, batch_size = len(dataset))))
 
 
 # splits based on uniprotIDs
@@ -137,7 +132,6 @@ def standardize_dataset(dataset):
         for i in range(len(row)):
             row[i] = (row[i] - means[i]) / stdevs[i]
     return dataset
-
 
 # Plot confusion Matrix
 def plot_confusion_matrix(cf_matrix, mode = 'train'):
