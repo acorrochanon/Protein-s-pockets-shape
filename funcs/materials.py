@@ -120,16 +120,16 @@ class Network(torch.nn.Module):
         # self.linear = torch.nn.Linear(gate_shape(self.gate3, 'out') + 12 , 1)
         self.linear = torch.nn.Linear(13 , 1)
         
-        
-    def forward(self, data, prnt = False) -> torch.Tensor:
+    def forward(self, data, embeddings = False, prnt = False, fp_features = False) -> torch.Tensor:
         # Set the number of nodes and max radius.
         num_nodes = 4
-        max_radius = 6.1
-        
+        max_radius = 6.2
+
         # Generate graph using the node positions and creating the edges when the relative distance 
         # between a pair of nodes is smaller than max_radius (r).
         edge_src, edge_dst = radius_graph(x = data.pos, r = max_radius, batch=data.batch)
         edge_vec = data.pos[edge_src] - data.pos[edge_dst]
+        data.batch = data.batch.to(self.device)
 
         # Computing the sh
         # Normalize=True ensure that x is divided by |x| prior computation
@@ -144,7 +144,7 @@ class Network(torch.nn.Module):
         edge_dst = edge_dst.to(self.device)
         edge_attr = edge_attr.to(self.device)
         edge_length_embedded = edge_length_embedded.to(self.device)
-        data.batch = data.batch.to(self.device)
+        
         #data.x = data.x.to(self.device)
         
         #---------------------- LAYERS + GATES --------------------------
@@ -175,24 +175,27 @@ class Network(torch.nn.Module):
         x = self.gate3(x)
         if prnt is True:
             print('7- Gate:', x.shape)
+        
+        #  FPOCKET FEATURES
+        if fp_features is True:
+            x = torch.cat([x, data.x], dim = 1)
+
+        # RETRIEVE EMBEDDINGS
+        if embeddings is True:
+            return self.fwdEmbeddings(x, data.batch, num_nodes)
 
         x = self.final(x, edge_src, edge_dst, edge_attr, edge_length_embedded)
         if prnt is True:
             print('8- Conv:', x.shape)        
 
-        # Add fpocket features
-        #x = torch.cat([x, data.x], dim = 1)
-        
-        if prnt is True:
-            print('9- Add features:', x.shape)
-
         x = scatter(x, data.batch, dim=0).div(num_nodes**0.5)
         if prnt is True:
             print('10- Scatter:', x.shape,'\n')
-        
-        #x = self.linear(x)
-        x = self.sigmoid(x)
 
+        return self.sigmoid(x)
 
-        return x
+    def fwdEmbeddings(self, x, databatch, num_nodes):
+        embs = scatter(x, databatch, dim=0).div(num_nodes**0.5)
+        return embs
+
 

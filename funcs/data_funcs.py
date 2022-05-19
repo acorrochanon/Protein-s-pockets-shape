@@ -27,7 +27,7 @@ def applyRotation(cavities) -> list:
 
 
 # Dataset construction. Decide whether using node features or not (atom types + other scalar features)
-def buildDataset(cavities, labels, atypes = None, features = None, rotation = True):
+def buildDataset(cavities, labels = None, atypes = None, features = None, rotation = True):
     # Load dictionary of atom types
     data_folder  = '/'.join([p for p in os.path.abspath(os.getcwd()).split('/')[:-1]])+'/data'
     #data_folder  = '/'.join([p for p in os.path.abspath(os.getcwd()).split('/')[:-1]])+'/kpjt213/data'
@@ -35,8 +35,8 @@ def buildDataset(cavities, labels, atypes = None, features = None, rotation = Tr
 
     if rotation is True:
         cavities = applyRotation(cavities)
-    
-    # User wants to work just with the set of point clouds. 
+
+    # CAVITIES/ CAVITIES + LABELS
     if atypes is None:
         nodes = [Data(pos = cav) for cav in cavities]
 
@@ -45,16 +45,19 @@ def buildDataset(cavities, labels, atypes = None, features = None, rotation = Tr
                 print('ERROR: Atom types and features must be introduced')
                 exit(1)
 
-    # User enters node features.
+    # CAVITIES + LABELS + NODE FEATURES
     else:  
         nodes = [Data(
                         pos = cav, 
                         x = torch.tensor(np.array([np.append(features[idx],dict_atypes[k]) for k in atypes[idx]]),
-                                         dtype=torch.get_default_dtype())) 
+                                         dtype=torch.get_default_dtype()))
                    for idx, cav in enumerate(cavities)]
 
-    # Add labels 
-    dataset = [[nodes[i], labels[i]] for i in range(len(labels))]
+    # LABELS CONDITIONAL
+    if labels is None:
+        return nodes
+    else:
+        dataset = [[nodes[i], labels[i]] for i in range(len(labels))]
 
     return dataset
 
