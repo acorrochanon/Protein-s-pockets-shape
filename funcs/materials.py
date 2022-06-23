@@ -9,7 +9,7 @@ from e3nn.math import soft_one_hot_linspace
 
 
 class EarlyStopping():
-    def __init__(self, model, tolerance = 5):
+    def __init__(self, model, tolerance = 12):
         self.tolerance = tolerance
         self.counter = 0
         self.early_stop = False
@@ -182,7 +182,7 @@ class Network(torch.nn.Module):
 
         # RETRIEVE EMBEDDINGS
         if embeddings is True:
-            return self.fwdEmbeddings(x, data.batch, num_nodes)
+            return self.getEmbeddings(x, data.batch, num_nodes)
 
         x = self.final(x, edge_src, edge_dst, edge_attr, edge_length_embedded)
         if prnt is True:
@@ -190,11 +190,11 @@ class Network(torch.nn.Module):
 
         x = scatter(x, data.batch, dim=0).div(num_nodes**0.5)
         if prnt is True:
-            print('10- Scatter:', x.shape,'\n')
+            print('9- Scatter:', x.shape,'\n')
 
         return self.sigmoid(x)
 
-    def fwdEmbeddings(self, x, databatch, num_nodes):
+    def getEmbeddings(self, x, databatch, num_nodes):
         embs = scatter(x, databatch, dim=0).div(num_nodes**0.5)
         return embs
 
