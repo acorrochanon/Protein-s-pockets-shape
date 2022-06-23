@@ -1,0 +1,47 @@
+Tesla V100-PCIE-32GB
+Training on cuda.
+Epoch: 1 | Training Loss: 0.859 | Validation Loss: 0.410
+Epoch: 2 | Training Loss: 0.418 | Validation Loss: 0.386
+Epoch: 3 | Training Loss: 0.392 | Validation Loss: 0.369
+Epoch: 4 | Training Loss: 0.376 | Validation Loss: 0.356
+Epoch: 5 | Training Loss: 0.363 | Validation Loss: 0.349
+Epoch: 6 | Training Loss: 0.358 | Validation Loss: 0.440
+Epoch: 7 | Training Loss: 0.351 | Validation Loss: 0.350
+Epoch: 8 | Training Loss: 0.338 | Validation Loss: 0.348
+Epoch: 9 | Training Loss: 0.329 | Validation Loss: 0.350
+Epoch: 10 | Training Loss: 0.323 | Validation Loss: 0.359
+Epoch: 11 | Training Loss: 0.318 | Validation Loss: 0.345
+Epoch: 12 | Training Loss: 0.313 | Validation Loss: 0.346
+Epoch: 13 | Training Loss: 0.308 | Validation Loss: 0.346
+Epoch: 14 | Training Loss: 0.302 | Validation Loss: 0.344
+Epoch: 15 | Training Loss: 0.299 | Validation Loss: 0.348
+Epoch: 16 | Training Loss: 0.294 | Validation Loss: 0.345
+Epoch: 17 | Training Loss: 0.293 | Validation Loss: 0.348
+Epoch: 18 | Training Loss: 0.287 | Validation Loss: 0.357
+Epoch: 19 | Training Loss: 0.285 | Validation Loss: 0.385
+Epoch: 20 | Training Loss: 0.290 | Validation Loss: 0.365
+Epoch: 21 | Training Loss: 0.286 | Validation Loss: 0.353
+Epoch: 22 | Training Loss: 0.284 | Validation Loss: 0.378
+Epoch: 23 | Training Loss: 0.277 | Validation Loss: 0.397
+Epoch: 24 | Training Loss: 0.282 | Validation Loss: 0.380
+Epoch: 25 | Training Loss: 0.301 | Validation Loss: 0.356
+Training finished at epoch 26
+Batch 0. Accuracy: 88.281% | AUC: 0.888 | Loss: 0.22
+Batch 1. Accuracy: 90.625% | AUC: 0.712 | Loss: 0.36
+Batch 2. Accuracy: 87.500% | AUC: 0.826 | Loss: 0.37
+Batch 3. Accuracy: 90.625% | AUC: 0.910 | Loss: 0.27
+Batch 4. Accuracy: 92.188% | AUC: 0.862 | Loss: 0.28
+Batch 5. Accuracy: 86.719% | AUC: 0.808 | Loss: 0.34
+Batch 6. Accuracy: 92.188% | AUC: 0.879 | Loss: 0.23
+Batch 7. Accuracy: 86.719% | AUC: 0.793 | Loss: 0.35
+Batch 8. Accuracy: 84.375% | AUC: 0.844 | Loss: 0.44
+Batch 9. Accuracy: 92.188% | AUC: 0.801 | Loss: 0.34
+Batch 10. Accuracy: 85.938% | AUC: 0.810 | Loss: 0.45
+Batch 11. Accuracy: 82.031% | AUC: 0.842 | Loss: 1.17
+Batch 12. Accuracy: 90.625% | AUC: 0.766 | Loss: 0.34
+Batch 13. Accuracy: 87.500% | AUC: 0.711 | Loss: 0.39
+Batch 14. Accuracy: 87.500% | AUC: 0.856 | Loss: 1.21
+Batch 15. Accuracy: 87.500% | AUC: 0.810 | Loss: 0.29
+Batch 16. Accuracy: 89.844% | AUC: 0.759 | Loss: 0.35
+Batch 17. Accuracy: 89.062% | AUC: 0.872 | Loss: 0.47
+Batch 18. Accuracy: 81.111% | AUC: 0.764 | Loss: 0.50
