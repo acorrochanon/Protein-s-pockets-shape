@@ -28,24 +28,27 @@ def cluster_protein_structures(list_of_protein_structures):
     
     # map to uniprotIDs
     maps = map_to_uniProtID(query)
-    
-    # Remove duplicates.
-    check_val = set() 
-    res = []
-    for i in maps:
-        if i[0] not in check_val:
-            res.append(i)
-            check_val.add(i[0]) 
-    
-    # Assign default key to protein structures with no UniProt ID.
-    prot = [x[0] for x in res]
-    withoutUniProtID = set(list_of_protein_structures) - set(prot)
+            
+    # Remove protein structures belonging to multiple UniProt IDs
+    mul=[]
+    for key, group in groupby(maps, lambda x: x[0]):
+        g = list(group)
+        if len(g) > 1:
+            mul.append(list(g))
+            
+    mul_merged= list(chain.from_iterable(mul))
+    for elt in mul_merged:
+        maps.remove(elt)
+              
+    # Assign default key for protein structures without UniProt ID  
+    prot = [x[0] for x in maps]
+    withoutUniProtID = set(list_of_protein_structures) - set(prot) - set([x[0] for x in mul_merged])
     for x in withoutUniProtID:
-        res.append((x, "Unknown"))
-    
+        maps.append((x, "Unknown"))
+        
     ## Clusters of UniProt IDs
     clusters = defaultdict(list)
-    for v, k in res:
+    for v, k in maps:
         clusters[k].append(v)
         
     return clusters
